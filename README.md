@@ -1,5 +1,5 @@
 # sql
 
-Hi, this is Jovany. This is a portfolio of SQL code that I've written independently of work. The repository features two SQL projects.
-1) The first project analyzes BitCoin and Ethereum prices, market capitalization, and trading volume over the inception of each respective cryptocurrency. The datasets are 'btc-usd-max.csv' and 'eth-usd-max.csv' and the SQL script is 'btc_eth.sql'.
-2) The second project analyzes transaction data from a B2B SaaS company selling sales and marketing software to other companies. The dataset is 'SaaS-sales.csv' and the SQL script is 'SaaS-Sales.sql'.
+Hi, this is Jovany. This is a portfolio of annotated SQL code that I've written independently of work. The repository features two SQL projects.
+1) The first project analyzes BitCoin and Ethereum prices, market capitalization, and trading volume over the inception of each respective cryptocurrency. The datasets are 'btc-usd-max.csv' and 'eth-usd-max.csv' and the SQL script is 'btc_eth.sql'. I will be using JOINs, aggregate functions, and subqueries to analyze the standard deviation of each coin, correlation coefficient between each coin's price, and the monthly, yearly, and quarterly growth of each coin since June 2020.
+3) The second project analyzes transaction data from a B2B SaaS company selling sales and marketing software to other companies. The dataset is 'SaaS-sales.csv' and the SQL script is 'SaaS-Sales.sql'. I will be using basic SQL queries to extract the highest margin products, most  profitable industries, countries, and regions, and most profitable customers grouped by industry and product. 
