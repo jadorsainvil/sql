@@ -8,17 +8,19 @@ USE crypto;
 
 -- Table creation for 4-column BTC and ETH data load, featuring prices timestamp, price (to two decimal places), market capitalization at time of timestamp, and total trading volume.
 
-CREATE TABLE bitcoin(
-	snapped_at DATETIME PRIMARY KEY,
-	bitcoin_price BIGINT,
-	bitcoin_market_cap BIGINT,
-	bitcoin_total_volume BIGINT);
+CREATE TABLE bitcoin (
+    snapped_at DATETIME PRIMARY KEY,
+    bitcoin_price BIGINT,
+    bitcoin_market_cap BIGINT,
+    bitcoin_total_volume BIGINT
+);
 
-CREATE TABLE ethereum(
-	snapped_at DATETIME PRIMARY KEY,
-	ethereum_price BIGINT,
-	ethereum_market_cap BIGINT,
-	ethereum_total_volume BIGINT);
+CREATE TABLE ethereum (
+    snapped_at DATETIME PRIMARY KEY,
+    ethereum_price BIGINT,
+    ethereum_market_cap BIGINT,
+    ethereum_total_volume BIGINT
+);
 
 -- Manual table dataload for BTC-USD-MAX.csv and ETH-USD-MAX.csv
 
@@ -38,48 +40,73 @@ IGNORE 1 LINES;
 
 -- Verification of successful data load, existence and population of both tables, confirmation of row number for each table. Expected values 4069 (bitcoin) and 3239 (ethereum).
 
-SELECT * FROM bitcoin;
-SELECT * FROM ethereum;
-SELECT COUNT(*) FROM bitcoin;
-SELECT COUNT(*) FROM ethereum;
+SELECT 
+    *
+FROM
+    bitcoin;
+SELECT 
+    *
+FROM
+    ethereum;
+SELECT 
+    COUNT(*)
+FROM
+    bitcoin;
+SELECT 
+    COUNT(*)
+FROM
+    ethereum;
 
 -- INNER JOIN on timestamp to connect BTC and ETH tables. Expected result 3235 (bitcoin and ethereum).
 
-SELECT * FROM bitcoin
-LEFT JOIN ethereum
-ON bitcoin.snapped_at = ethereum.snapped_at;
+SELECT 
+    *
+FROM
+    bitcoin
+        LEFT JOIN
+    ethereum ON bitcoin.snapped_at = ethereum.snapped_at;
 
-SELECT COUNT(*) FROM bitcoin
-LEFT JOIN ethereum
-ON bitcoin.snapped_at = ethereum.snapped_at;
+SELECT 
+    COUNT(*)
+FROM
+    bitcoin
+        LEFT JOIN
+    ethereum ON bitcoin.snapped_at = ethereum.snapped_at;
 
 -- Calculation of average bitcoin and ethereum price over the last 4 years.
 
-SELECT avg(bitcoin_price) AS avg_btc_price, avg(ethereum_price) AS avg_eth_price
-FROM bitcoin
-INNER JOIN ethereum
-ON bitcoin.snapped_at = ethereum.snapped_at
-WHERE bitcoin.snapped_at BETWEEN '2020-06-01' AND '2024-06-01';
+SELECT 
+    AVG(bitcoin_price) AS avg_btc_price,
+    AVG(ethereum_price) AS avg_eth_price
+FROM
+    bitcoin
+        INNER JOIN
+    ethereum ON bitcoin.snapped_at = ethereum.snapped_at
+WHERE
+    bitcoin.snapped_at BETWEEN '2020-06-01' AND '2024-06-01';
 
 -- Calculation of standard deviation of bitcoin and ethereum price over the last 4 years.
 
-SELECT stddev_samp(bitcoin_price) AS std_btc, 
-	    stddev_samp(ethereum_price) AS std_eth
-FROM bitcoin
-INNER JOIN ethereum
-ON bitcoin.snapped_at = ethereum.snapped_at
-WHERE bitcoin.snapped_at BETWEEN '2020-06-01' AND '2024-06-01';
+SELECT 
+    STDDEV_SAMP(bitcoin_price) AS std_btc,
+    STDDEV_SAMP(ethereum_price) AS std_eth
+FROM
+    bitcoin
+        INNER JOIN
+    ethereum ON bitcoin.snapped_at = ethereum.snapped_at
+WHERE
+    bitcoin.snapped_at BETWEEN '2020-06-01' AND '2024-06-01';
 
 -- Correlation coefficient of bitcoin and ethereum price over the last 4 years.
 
 SELECT 
-	corr(bitcoin_price, ethereum_price) AS 'btc_eth_corr'
-FROM bitcoin
-INNER JOIN ethereum
-	ON bitcoin.snapped_at = ethereal.snapped_at
-WHERE snapped_at BETWEEN ’2020-06-01’ AND ‘2024-06-01’;
-
--- Calculating daily percent change of Bitcoin price’s since June 2020.
+    CORR(bitcoin_price, ethereum_price) AS 'btc_eth_corr'
+FROM
+    bitcoin
+        INNER JOIN
+    ethereum ON bitcoin.snapped_at = ethereal.snapped_at
+WHERE
+    snapped_at BETWEEN ’2020 - 06 - 01’ AND ‘2024 - 06 - 01’lculating daily percent change of Bitcoin price’s since June 2020.
 
 SELECT snapped_at, (bitcoin_price-prev_day_price )/(prev_day_price) AS daily_percent_change
 FROM(
